@@ -5,11 +5,9 @@ export default class App extends React.Component{
   render() {
     return (
       <div>
-        <h1>React Router Tutorial</h1>
+        <h1>React Animation</h1>
         <ul role="nav">
-          <li><NavLink to="/" exact activeClassName="active">Home</NavLink></li>
-          <li><NavLink to="/about" exact activeClassName="active">About</NavLink></li>
-          <li><NavLink to="/repos" activeClassName="active">Repos</NavLink></li>
+          <li><NavLink to="/carousel" exact activeClassName="active">Carousel</NavLink></li>
         </ul>
         {this.props.children}
       </div>
