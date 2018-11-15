@@ -1,21 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import styled, {injectGlobal} from 'styled-components';
 
 injectGlobal`
-    img{
+    .example{
         display: block;
         max-width: 100%;
     }
     .example-enter{
-        opacity: 0;
+        transform: translateX(100%);
     }
     .example-enter-active{
-        opacity: 1;
-        transition: opacity 300ms ease-in;
+        transform: translateX(20%);
+        transition: transform 3000ms ease-in;
+    }
+    .example-exit{
+        transform: translateX(-20%);
+    }
+    .example-exit-active{
+        transform: translateX(-100%);
+        transition: transform 3000ms ease-in;
     }
 
 `;
@@ -45,15 +52,18 @@ export default class Example extends React.Component{
     }
 
     handleCarousel(){
-        this.setState({
-            runAnimation: true
-        });
-
         this.timer = setInterval(()=>{
             let {index} = this.state;
 
             this.setState({
+                runAnimation: true,
                 index: index >= imgList.length-1 ? 0 : ++index
+            }, ()=>{
+                setTimeout(()=>{
+                    this.setState({
+                        runAnimation: false
+                    })
+                }, 3000);
             })
         }, 3000);
     }
@@ -67,10 +77,11 @@ export default class Example extends React.Component{
             <div className="wrapper">
                 <div className='carousel'>
                     <CSSTransition
-                      timeout={300}
-                      classNames="example"
+                        in={runAnimation}
+                        timeout={300}
+                        classNames="example"
                     >
-                        <img className="example" src={imgSrc} key={imgSrc} />
+                        <img className="example" src={imgSrc} />
                     </CSSTransition>
                 </div>
                 <button onClick={this.handleCarousel}>启动</button>
