@@ -3,19 +3,16 @@ import { render } from 'react-dom'
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 import App from './modules/App'
-import About from './modules/About'
-import Repos from './modules/Repos'
-import Repo from './modules/Repo'
-import Home from './modules/Home'
+import Carousel from './modules/Carousel'
+import RouterTransition from './modules/RouterTransition'
 
 render((
     <HashRouter>
         <App>
             <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/repos" component={Repos} />
-                <Route path="/about" component={About}/>
-                <Redirect to="/" />
+                <Route path="/carousel" component={Carousel} />
+                <Route path="/router" component={RouterTransition}/>
+                <Redirect to="/carousel" />
             </Switch>
         </App>
     </HashRouter>
